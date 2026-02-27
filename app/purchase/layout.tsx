@@ -6,13 +6,13 @@ export const metadata: Metadata = {
   title: "購入方法",
   description: "私のブリードしたキンペコの購入方法をご案内いたします",
   openGraph: {
-    title: "購入方法 | キンペコ - 熱帯魚ブリーダー",
+    title: "購入方法 | キンペコ（L333）ブリード・血統・飼育記録",
     description: "私のブリードしたキンペコの購入方法をご案内いたします",
     url: `${siteUrl}/purchase`,
   },
   twitter: {
     card: "summary_large_image",
-    title: "購入方法 | キンペコ - 熱帯魚ブリーダー",
+    title: "購入方法 | キンペコ（L333）ブリード・血統・飼育記録",
     description: "私のブリードしたキンペコの購入方法をご案内いたします",
   },
 };

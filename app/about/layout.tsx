@@ -6,13 +6,13 @@ export const metadata: Metadata = {
   title: "自己紹介",
   description: "ブリーダーとしての想いとキンペコへのこだわり、ブリーディング環境をご紹介します",
   openGraph: {
-    title: "自己紹介 | キンペコ - 熱帯魚ブリーダー",
+    title: "自己紹介 | キンペコ（L333）ブリード・血統・飼育記録",
     description: "ブリーダーとしての想いとキンペコへのこだわり、ブリーディング環境をご紹介します",
     url: `${siteUrl}/about`,
   },
   twitter: {
     card: "summary_large_image",
-    title: "自己紹介 | キンペコ - 熱帯魚ブリーダー",
+    title: "自己紹介 | キンペコ（L333）ブリード・血統・飼育記録",
     description: "ブリーダーとしての想いとキンペコへのこだわり、ブリーディング環境をご紹介します",
   },
 };

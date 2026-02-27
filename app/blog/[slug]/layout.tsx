@@ -21,7 +21,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: post.title,
     description: post.excerpt,
     openGraph: {
-      title: `${post.title} | キンペコ - 熱帯魚ブリーダー`,
+      title: `${post.title} | キンペコ（L333）ブリード・血統・飼育記録`,
       description: post.excerpt,
       url: `${siteUrl}/blog/${slug}`,
       type: "article",
@@ -30,7 +30,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     },
     twitter: {
       card: "summary_large_image",
-      title: `${post.title} | キンペコ - 熱帯魚ブリーダー`,
+      title: `${post.title} | キンペコ（L333）ブリード・血統・飼育記録`,
       description: post.excerpt,
     },
   };

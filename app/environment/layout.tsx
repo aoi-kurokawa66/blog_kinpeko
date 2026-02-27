@@ -6,13 +6,13 @@ export const metadata: Metadata = {
   title: "飼育環境",
   description: "キンペコが健やかに育つ飼育環境づくりと日々の管理についてご紹介します",
   openGraph: {
-    title: "飼育環境 | キンペコ - 熱帯魚ブリーダー",
+    title: "飼育環境 | キンペコ（L333）ブリード・血統・飼育記録",
     description: "キンペコが健やかに育つ飼育環境づくりと日々の管理についてご紹介します",
     url: `${siteUrl}/environment`,
   },
   twitter: {
     card: "summary_large_image",
-    title: "飼育環境 | キンペコ - 熱帯魚ブリーダー",
+    title: "飼育環境 | キンペコ（L333）ブリード・血統・飼育記録",
     description: "キンペコが健やかに育つ飼育環境づくりと日々の管理についてご紹介します",
   },
 };
