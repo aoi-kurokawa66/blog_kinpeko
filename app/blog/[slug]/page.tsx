@@ -1,10 +1,13 @@
 import Link from "next/link";
 import Image from "next/image";
+import Script from "next/script";
 import { notFound } from "next/navigation";
 import { getAllBlogs, getBlogBySlug, type Blog } from "@/lib/microcms";
+import Breadcrumb from "@/app/components/Breadcrumb";
 
 const DEFAULT_THUMBNAIL = "/images/fish/hero.webp";
 const RELATED_POSTS_COUNT = 3;
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.abyss-kinpeko.com";
 
 export const revalidate = 60;
 
@@ -35,20 +38,60 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
   const relatedPosts = getRelatedPosts(allPosts, post);
   const htmlContent = post.content;
 
+  const articleSchema = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: post.title,
+    description: post.excerpt,
+    datePublished: post.date,
+    dateModified: post.date,
+    author: {
+      "@type": "Person",
+      name: "Abyss",
+      url: siteUrl,
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "Abyss",
+      url: siteUrl,
+    },
+    url: `${siteUrl}/blog/${slug}`,
+    ...(post.thumbnail && { image: post.thumbnail }),
+  };
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "ホーム", item: siteUrl },
+      { "@type": "ListItem", position: 2, name: "ブログ", item: `${siteUrl}/blog` },
+      { "@type": "ListItem", position: 3, name: post.title, item: `${siteUrl}/blog/${slug}` },
+    ],
+  };
+
   return (
     <div className="min-h-screen">
+      <Script
+        id="article-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
+      />
+      <Script
+        id="breadcrumb-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+
       {/* ページヘッダー */}
       <section className="bg-ocean-800 py-10 md:py-14 border-b border-ocean-500/50">
         <div className="container mx-auto px-5 max-w-3xl">
-          <Link
-            href="/blog"
-            className="inline-flex items-center gap-1.5 text-ink-muted hover:text-cyan-400 text-xs font-medium mb-5 transition-colors"
-          >
-            <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-            </svg>
-            ブログ一覧
-          </Link>
+          <Breadcrumb
+            items={[
+              { label: "ホーム", href: "/" },
+              { label: "ブログ", href: "/blog" },
+              { label: post.title },
+            ]}
+          />
           <div className="flex items-center gap-2 mb-3">
             {post.category && (
               <span className="text-[0.6rem] font-bold text-cyan-400 bg-cyan-400/10 px-2 py-0.5 rounded-full tracking-wide">

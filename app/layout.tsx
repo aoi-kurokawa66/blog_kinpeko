@@ -19,7 +19,7 @@ const notoSansJP = Noto_Sans_JP({
   display: "swap",
 });
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://kinpeko.example.com";
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.abyss-kinpeko.com";
 
 export const metadata: Metadata = {
   title: {
@@ -60,7 +60,7 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://kinpeko.example.com";
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.abyss-kinpeko.com";
 
   const organizationSchema = {
     "@context": "https://schema.org",
@@ -101,8 +101,14 @@ export default function RootLayout({
             __html: JSON.stringify(websiteSchema),
           }}
         />
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-cyan-400 focus:text-ocean-900 focus:font-bold focus:rounded-lg focus:text-sm"
+        >
+          コンテンツへスキップ
+        </a>
         <Header />
-        <main className="flex-grow">{children}</main>
+        <main id="main-content" className="flex-grow">{children}</main>
         <Footer />
       </body>
     </html>
