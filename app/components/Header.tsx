@@ -65,14 +65,14 @@ export default function Header() {
       {/* デスクトップ上部ナビ */}
       <header className="hidden md:block fixed top-0 left-0 right-0 z-50 bg-ocean-800/95 backdrop-blur-md border-b border-ocean-500/60">
         <nav className="container mx-auto px-6 max-w-6xl">
-          <div className="flex items-center justify-between h-16">
+          <div className="flex items-center justify-between h-20">
             <Link href="/" className="flex items-center hover:opacity-80 transition-opacity">
               <Image
                 src="/images/logo/logo_side.png"
                 alt="ABYSS BREED"
-                width={240}
-                height={72}
-                className="h-14 w-auto object-contain"
+                width={300}
+                height={90}
+                className="h-16 w-auto object-contain"
                 priority
               />
             </Link>
@@ -139,7 +139,7 @@ export default function Header() {
       </nav>
 
       {/* デスクトップ用スペーサー */}
-      <div className="hidden md:block h-16" />
+      <div className="hidden md:block h-20" />
     </>
   );
 }
