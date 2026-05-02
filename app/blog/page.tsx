@@ -4,6 +4,8 @@ import { Suspense } from "react";
 import { getAllBlogs, type Blog } from "@/lib/microcms";
 import BlogSearch from "@/app/components/BlogSearch";
 
+export const revalidate = 60;
+
 const DEFAULT_THUMBNAIL = "/images/fish/hero.webp";
 
 function getTagsFromPosts(posts: Blog[]): string[] {
