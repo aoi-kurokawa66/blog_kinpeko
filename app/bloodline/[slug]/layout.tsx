@@ -35,6 +35,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       description: post.excerpt,
       images: post.thumbnail ? [`${siteUrl}${post.thumbnail}`] : undefined,
     },
+    alternates: {
+      canonical: `${siteUrl}/bloodline/${slug}`,
+    },
   };
 }
 

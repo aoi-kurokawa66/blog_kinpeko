@@ -53,6 +53,9 @@ export const metadata: Metadata = {
     description: "キンペコ（L333）の血統紹介、飼育環境、繁殖・育成の記録をまとめた個人サイト。",
     images: [`${siteUrl}/images/logo/logo_side.png`],
   },
+  alternates: {
+    canonical: siteUrl,
+  },
 };
 
 export default function RootLayout({

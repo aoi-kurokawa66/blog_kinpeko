@@ -15,6 +15,9 @@ export const metadata: Metadata = {
     title: "血統紹介 | キンペコ（L333）ブリード・血統・飼育記録",
     description: "ブリードした個体の血統情報、特徴、こだわりポイントを詳しくご紹介します",
   },
+  alternates: {
+    canonical: `${siteUrl}/bloodline`,
+  },
 };
 
 export default function BloodlineLayout({

@@ -15,6 +15,9 @@ export const metadata: Metadata = {
     title: "リンク集 | キンペコ（L333）ブリード・血統・飼育記録",
     description: "SNSや委託販売ショップへのリンクをまとめています。QRコードも生成できます。",
   },
+  alternates: {
+    canonical: `${siteUrl}/links`,
+  },
 };
 
 export default function LinksLayout({
