@@ -1,18 +1,18 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getAllPosts, getPostBySlug, getPostContentHTML } from "@/lib/blog";
+import { getAllBlogs, getBlogBySlug } from "@/lib/microcms";
 
 export async function generateStaticParams() {
-  const posts = getAllPosts();
+  const posts = await getAllBlogs();
   return posts.map((post) => ({ slug: post.slug }));
 }
 
 export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const post = getPostBySlug(slug);
+  const post = await getBlogBySlug(slug);
   if (!post) notFound();
 
-  const htmlContent = await getPostContentHTML(post.content);
+  const htmlContent = post.content;
 
   return (
     <div className="min-h-screen">

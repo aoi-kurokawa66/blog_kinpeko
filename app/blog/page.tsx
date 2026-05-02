@@ -1,12 +1,12 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Suspense } from "react";
-import { getAllPosts } from "@/lib/blog";
+import { getAllBlogs, type Blog } from "@/lib/microcms";
 import BlogSearch from "@/app/components/BlogSearch";
 
 const DEFAULT_THUMBNAIL = "/images/fish/hero.webp";
 
-function getTagsFromPosts(posts: ReturnType<typeof getAllPosts>): string[] {
+function getTagsFromPosts(posts: Blog[]): string[] {
   const tagSet = new Set<string>();
   posts.forEach((p) => p.tags?.forEach((t) => t && tagSet.add(t)));
   return Array.from(tagSet).slice(0, 10);
@@ -19,7 +19,7 @@ interface Props {
 export default async function BlogPage({ searchParams }: Props) {
   const { q = "", tag = "" } = await searchParams;
 
-  const allPosts = getAllPosts(undefined, "bloodline");
+  const allPosts = await getAllBlogs({ excludeCategory: "bloodline" });
   const allTags = getTagsFromPosts(allPosts);
 
   const posts = allPosts.filter((post) => {

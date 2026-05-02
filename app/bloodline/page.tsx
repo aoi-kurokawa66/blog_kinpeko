@@ -1,9 +1,9 @@
 import Link from "next/link";
 import Image from "next/image";
-import { getAllPosts } from "@/lib/blog";
+import { getAllBlogs } from "@/lib/microcms";
 
-export default function BloodlinePage() {
-  const posts = getAllPosts("bloodline");
+export default async function BloodlinePage() {
+  const posts = await getAllBlogs({ category: "bloodline" });
 
   return (
     <div className="min-h-screen">
