@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { getPostBySlug } from "../../../lib/blog";
+import { getBlogBySlug } from "../../../lib/microcms";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://kinpeko.example.com";
 
@@ -9,7 +9,7 @@ type Props = {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const post = getPostBySlug(slug);
+  const post = await getBlogBySlug(slug);
 
   if (!post) {
     return {

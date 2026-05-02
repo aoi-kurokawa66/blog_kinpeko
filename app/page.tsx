@@ -1,10 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
-import { getAllPosts } from "@/lib/blog";
+import { getAllBlogs } from "@/lib/microcms";
 
-export default function Home() {
-  const allPosts = getAllPosts();
-  const recentPosts = allPosts.slice(0, 3);
+export default async function Home() {
+  const allPosts = await getAllBlogs({ excludeCategory: "bloodline", limit: 3 });
+  const recentPosts = allPosts;
 
   return (
     <div className="min-h-screen">
