@@ -120,7 +120,7 @@ export default function Header() {
               alt="ABYSS BREED"
               width={300}
               height={90}
-              className="h-16 w-auto object-contain"
+              className="h-20 w-auto object-contain"
               priority
             />
           </Link>
