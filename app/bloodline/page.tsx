@@ -71,6 +71,32 @@ export default function BloodlinePage() {
           )}
         </div>
       </section>
+
+      {/* 血統DB誘導 */}
+      <section className="bg-ocean-800 py-10 md:py-14 border-t border-ocean-500/50">
+        <div className="container mx-auto px-5 max-w-5xl">
+          <div className="glass-card p-6 md:p-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-5 border border-gold-300/20 bg-gradient-to-br from-gold-300/5 to-transparent">
+            <div>
+              <p className="text-gold-300 text-[0.65rem] font-bold tracking-[0.2em] uppercase mb-2">Blood DB</p>
+              <h2 className="text-lg md:text-xl font-bold text-ink-primary mb-1.5">キンペコ血統DBで詳細を調べる</h2>
+              <p className="text-sm text-ink-muted leading-relaxed max-w-lg">
+                血統情報の共有プラットフォームで、より詳細な血統データや他のブリーダーの情報を確認できます。
+              </p>
+            </div>
+            <a
+              href="https://db.abyss-kinpeko.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex-shrink-0 flex items-center gap-2 px-6 py-3 bg-gold-300/15 border border-gold-300/30 text-gold-300 rounded-full text-sm font-bold hover:bg-gold-300/25 transition-all"
+            >
+              血統DBを開く
+              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+              </svg>
+            </a>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }
