@@ -19,7 +19,7 @@ const notoSansJP = Noto_Sans_JP({
   display: "swap",
 });
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://kinpeko.example.com";
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.abyss-kinpeko.com";
 
 export const metadata: Metadata = {
   title: {
@@ -60,7 +60,7 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://kinpeko.example.com";
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.abyss-kinpeko.com";
 
   const organizationSchema = {
     "@context": "https://schema.org",
