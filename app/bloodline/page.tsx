@@ -2,6 +2,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { getAllBlogs } from "@/lib/microcms";
 
+export const revalidate = 60;
+
 export default async function BloodlinePage() {
   const posts = await getAllBlogs({ category: "bloodline" });
 

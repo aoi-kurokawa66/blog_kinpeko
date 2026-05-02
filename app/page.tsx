@@ -2,6 +2,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { getAllBlogs } from "@/lib/microcms";
 
+export const revalidate = 60;
+
 export default async function Home() {
   const allPosts = await getAllBlogs({ excludeCategory: "bloodline", limit: 3 });
   const recentPosts = allPosts;

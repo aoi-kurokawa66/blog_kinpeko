@@ -2,6 +2,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getAllBlogs, getBlogBySlug } from "@/lib/microcms";
 
+export const revalidate = 60;
+
 export async function generateStaticParams() {
   const posts = await getAllBlogs();
   return posts.map((post) => ({ slug: post.slug }));
