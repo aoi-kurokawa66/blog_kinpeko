@@ -4,6 +4,7 @@ date: "2025-12-19"
 excerpt: "前回の記事はこちら！ kinpeko7563.hatenablog.com さて、もう私が繁殖させているキンペコの血統その2の紹介です。 ★ver3B×ver3 血統はシンプルですね！ 当たり前ですが、ver3とはオマケさんブリードのバージョンⅢのことです。NNさんのN3とか有名です..."
 category: "キンペコ"
 tags: []
+thumbnail: "/images/blog/jukisui-tubes.webp"
 ---
 
 前回の記事はこちら！

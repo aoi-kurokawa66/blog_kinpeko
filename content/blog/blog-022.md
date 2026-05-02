@@ -4,6 +4,7 @@ date: "2025-07-17"
 excerpt: ""
 category: "キンペコ"
 tags: []
+thumbnail: "/images/blog/fry-swimming.webp"
 ---
 
 ## はじめに
