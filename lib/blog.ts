@@ -17,6 +17,7 @@ export interface BlogPost {
   content: string;
   category?: string;
   tags?: string[];
+  thumbnail?: string;
 }
 
 export function getAllPosts(category?: string, excludeCategory?: string): BlogPost[] {
@@ -42,6 +43,7 @@ export function getAllPosts(category?: string, excludeCategory?: string): BlogPo
           content: content,
           category: data.category || "",
           tags: data.tags || [],
+          thumbnail: data.thumbnail || "",
         } as BlogPost;
       });
 
@@ -86,6 +88,7 @@ export function getPostBySlug(slug: string): BlogPost | null {
       content: content,
       category: data.category || "",
       tags: data.tags || [],
+      thumbnail: data.thumbnail || "",
     } as BlogPost;
   } catch (error) {
     console.error("Error reading blog post:", error);

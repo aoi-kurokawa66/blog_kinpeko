@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { getAllPosts } from "@/lib/blog";
 
 export default function BloodlinePage() {
@@ -15,51 +16,57 @@ export default function BloodlinePage() {
         </div>
       </section>
 
-      {/* 血統一覧 */}
       <section className="bg-ocean-900 py-8 md:py-12">
         <div className="container mx-auto px-5 max-w-5xl">
           {posts.length > 0 ? (
-            <div className="space-y-2.5">
-              {posts.map((post, i) => (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+              {posts.map((post) => (
                 <Link
                   key={post.slug}
                   href={`/bloodline/${post.slug}`}
-                  className="group flex items-start gap-4 glass-card-hover p-4 md:p-5"
+                  className="group glass-card-hover overflow-hidden rounded-2xl flex flex-col"
                 >
-                  <span className="flex-shrink-0 w-7 h-7 rounded-full bg-ocean-600 border border-ocean-500 flex items-center justify-center text-[0.6rem] font-bold text-ink-muted group-hover:border-cyan-400/40 transition-colors">
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
-                  <div className="flex-1 min-w-0">
-                    <time className="text-[0.6rem] text-ink-muted block mb-1.5">
-                      {new Date(post.date).toLocaleDateString("ja-JP", {
-                        year: "numeric",
-                        month: "short",
-                        day: "numeric",
-                      })}
+                  {/* サムネ */}
+                  <div className="relative h-48">
+                    <Image
+                      src={post.thumbnail || "/images/fish/tank.webp"}
+                      alt={post.title}
+                      fill
+                      className="object-cover group-hover:scale-105 transition-transform duration-500"
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-ocean-900/90 via-ocean-900/20 to-transparent" />
+                    <div className="absolute bottom-0 left-0 p-4">
+                      <span className="text-[0.55rem] font-bold text-cyan-400 bg-ocean-900/80 backdrop-blur-sm px-2 py-0.5 rounded-full tracking-wide border border-cyan-400/20">
+                        Bloodline
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* テキスト */}
+                  <div className="p-5 flex flex-col flex-1">
+                    <time className="text-[0.6rem] text-ink-muted mb-1.5">
+                      {new Date(post.date).toLocaleDateString("ja-JP", { year: "numeric", month: "short", day: "numeric" })}
                     </time>
-                    <h3 className="text-sm md:text-[0.95rem] font-semibold text-ink-primary group-hover:text-cyan-400 transition-colors leading-snug">
+                    <h3 className="text-base font-bold text-ink-primary group-hover:text-cyan-400 transition-colors leading-snug mb-2">
                       {post.title}
                     </h3>
                     {post.excerpt && (
-                      <p className="text-xs text-ink-muted mt-1 line-clamp-2 leading-relaxed">
-                        {post.excerpt}
-                      </p>
+                      <p className="text-xs text-ink-muted leading-relaxed line-clamp-3 flex-1">{post.excerpt}</p>
                     )}
+                    <div className="flex items-center gap-1.5 mt-4 text-cyan-400 text-xs font-semibold">
+                      詳しく見る
+                      <svg className="w-3 h-3 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
+                    </div>
                   </div>
-                  <svg
-                    className="flex-shrink-0 w-3.5 h-3.5 text-ink-muted group-hover:text-cyan-400 transition-colors mt-1"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                  </svg>
                 </Link>
               ))}
             </div>
           ) : (
-            <div className="glass-card p-8 text-center">
-              <p className="text-ink-muted">まだ血統紹介がありません</p>
+            <div className="glass-card p-10 text-center">
+              <p className="text-ink-muted text-sm">まだ血統紹介がありません</p>
             </div>
           )}
         </div>
