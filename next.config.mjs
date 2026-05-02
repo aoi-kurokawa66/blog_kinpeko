@@ -6,6 +6,10 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'api.qrserver.com',
       },
+      {
+        protocol: 'https',
+        hostname: 'images.microcms-assets.io',
+      },
     ],
   },
   webpack: (config, { isServer }) => {
