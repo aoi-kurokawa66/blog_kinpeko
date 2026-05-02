@@ -10,7 +10,7 @@ export default function Home() {
     <div className="min-h-screen">
 
       {/* ─── ヒーロー ─── */}
-      <section className="relative h-[88svh] md:h-[82vh] min-h-[520px] flex items-end overflow-hidden mt-16 md:mt-0">
+      <section className="relative h-[88svh] md:h-[82vh] min-h-[520px] flex items-end overflow-hidden mt-20 md:mt-0">
         <Image
           src="/images/fish/hero.webp"
           alt="キンペコ（L333）成魚"
