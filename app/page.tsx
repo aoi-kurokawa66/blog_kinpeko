@@ -10,7 +10,7 @@ export default function Home() {
     <div className="min-h-screen">
 
       {/* ─── ヒーロー ─── */}
-      <section className="relative h-[88svh] md:h-[82vh] min-h-[520px] flex items-end overflow-hidden mt-14 md:mt-0">
+      <section className="relative h-[88svh] md:h-[82vh] min-h-[520px] flex items-end overflow-hidden mt-20 md:mt-0">
         <Image
           src="/images/fish/hero.webp"
           alt="キンペコ（L333）成魚"
@@ -23,7 +23,7 @@ export default function Home() {
         <div className="absolute inset-0 hero-overlay hidden md:block" />
 
         {/* ヒーローテキスト */}
-        <div className="relative z-10 w-full px-5 pb-12 md:px-16 md:pb-20 max-w-3xl">
+        <div className="relative z-10 w-full px-5 pb-24 md:px-16 md:pb-20 max-w-3xl">
           <p className="text-cyan-400 text-[0.65rem] font-bold tracking-[0.25em] uppercase mb-3">
             L333 Breeder — Abyss
           </p>
@@ -52,7 +52,7 @@ export default function Home() {
         </div>
 
         {/* スクロールヒント */}
-        <div className="absolute bottom-5 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-1 opacity-40">
+        <div className="hidden md:flex absolute bottom-5 left-1/2 -translate-x-1/2 z-10 flex-col items-center gap-1 opacity-40">
           <span className="text-white text-[0.6rem] tracking-widest uppercase">Scroll</span>
           <div className="w-px h-8 bg-white/50 animate-pulse" />
         </div>
@@ -129,6 +129,30 @@ export default function Home() {
                 </div>
               </div>
             </Link>
+
+            {/* 血統DB: 小カード */}
+            <a
+              href="https://db.abyss-kinpeko.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="col-span-1 row-span-1 relative overflow-hidden rounded-2xl group glass-card-hover border border-gold-300/20"
+            >
+              <div className="absolute inset-0 bg-gradient-to-br from-gold-300/15 to-transparent" />
+              <div className="relative h-full flex flex-col justify-between p-4">
+                <div className="flex items-center justify-between">
+                  <span className="text-gold-300 text-[0.55rem] font-bold tracking-[0.2em] uppercase">Blood DB</span>
+                  <svg className="w-3 h-3 text-gold-300/50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                  </svg>
+                </div>
+                <div>
+                  <h2 className="text-base md:text-lg font-bold text-white mb-1">血統DB</h2>
+                  <p className="text-white/50 text-[0.65rem] leading-relaxed hidden md:block">
+                    血統情報の共有プラットフォーム
+                  </p>
+                </div>
+              </div>
+            </a>
 
             {/* ブログ: 横長カード（画像背景） col-span-2 */}
             <Link
