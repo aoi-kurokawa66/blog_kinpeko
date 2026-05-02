@@ -113,14 +113,14 @@ export default function Header() {
 
       {/* モバイル上部（ロゴのみ） */}
       <header className="md:hidden fixed top-0 left-0 right-0 z-50 bg-ocean-800/95 backdrop-blur-md border-b border-ocean-500/60">
-        <div className="flex items-center justify-center h-14 px-4">
+        <div className="flex items-center justify-center h-16 px-4">
           <Link href="/" className="hover:opacity-80 transition-opacity">
             <Image
               src="/images/logo/logo_side.png"
               alt="ABYSS BREED"
-              width={140}
-              height={40}
-              className="h-8 w-auto object-contain"
+              width={200}
+              height={60}
+              className="h-12 w-auto object-contain"
               priority
             />
           </Link>

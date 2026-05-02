@@ -10,7 +10,7 @@ export default function Home() {
     <div className="min-h-screen">
 
       {/* ─── ヒーロー ─── */}
-      <section className="relative h-[88svh] md:h-[82vh] min-h-[520px] flex items-end overflow-hidden mt-14 md:mt-0">
+      <section className="relative h-[88svh] md:h-[82vh] min-h-[520px] flex items-end overflow-hidden mt-16 md:mt-0">
         <Image
           src="/images/fish/hero.webp"
           alt="キンペコ（L333）成魚"
@@ -23,7 +23,7 @@ export default function Home() {
         <div className="absolute inset-0 hero-overlay hidden md:block" />
 
         {/* ヒーローテキスト */}
-        <div className="relative z-10 w-full px-5 pb-12 md:px-16 md:pb-20 max-w-3xl">
+        <div className="relative z-10 w-full px-5 pb-24 md:px-16 md:pb-20 max-w-3xl">
           <p className="text-cyan-400 text-[0.65rem] font-bold tracking-[0.25em] uppercase mb-3">
             L333 Breeder — Abyss
           </p>
@@ -52,7 +52,7 @@ export default function Home() {
         </div>
 
         {/* スクロールヒント */}
-        <div className="absolute bottom-5 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-1 opacity-40">
+        <div className="hidden md:flex absolute bottom-5 left-1/2 -translate-x-1/2 z-10 flex-col items-center gap-1 opacity-40">
           <span className="text-white text-[0.6rem] tracking-widest uppercase">Scroll</span>
           <div className="w-px h-8 bg-white/50 animate-pulse" />
         </div>
