@@ -2,78 +2,62 @@ import Link from "next/link";
 
 export default function Footer() {
   return (
-    <footer className="bg-[#161c30] text-white mt-auto">
-      <div className="container mx-auto px-4 py-8">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+    <footer className="bg-ocean-700 border-t border-ocean-500/60 mt-auto">
+      <div className="container mx-auto px-5 max-w-5xl py-8 md:py-10">
+        <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-6">
           <div>
-            <h3 className="text-lg font-bold mb-4">キンペコ</h3>
-            <p className="text-gray-300">
-              キンペコの魅力をお届けするサイト
-            </p>
+            <p className="text-xs font-semibold text-cyan-400 tracking-widest uppercase mb-1">Abyss</p>
+            <p className="text-ink-secondary text-sm">キンペコ（L333）ブリーダーによる飼育・繁殖記録サイト</p>
           </div>
-          <div>
-            <h3 className="text-lg font-bold mb-4">ナビゲーション</h3>
-            <ul className="space-y-2">
-              <li>
-                <Link href="/" className="text-gray-300 hover:text-accent-400 transition-colors">
-                  ホーム
-                </Link>
-              </li>
-              <li>
-                <Link href="/about" className="text-gray-300 hover:text-accent-400 transition-colors">
-                  自己紹介
-                </Link>
-              </li>
-              <li>
-                <Link href="/bloodline" className="text-gray-300 hover:text-accent-400 transition-colors">
-                  血統紹介
-                </Link>
-              </li>
-              <li>
-                <Link href="/blog" className="text-gray-300 hover:text-accent-400 transition-colors">
-                  ブログ
-                </Link>
-              </li>
-            </ul>
-          </div>
-          <div>
-            <h3 className="text-lg font-bold mb-4">SNS</h3>
-            <ul className="space-y-2">
-              <li>
-                <a
-                  href="https://x.com/aquarium621"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-gray-300 hover:text-accent-400 transition-colors"
-                >
-                  X (Twitter)
-                </a>
-              </li>
-              <li>
-                <a
-                  href="https://www.instagram.com/kinpeco_aquarium"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-gray-300 hover:text-accent-400 transition-colors"
-                >
-                  Instagram
-                </a>
-              </li>
-              <li>
-                <a
-                  href="https://www.youtube.com/@aquarium-abyss"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-gray-300 hover:text-accent-400 transition-colors"
-                >
-                  YouTube
-                </a>
-              </li>
-            </ul>
+
+          <div className="flex gap-8">
+            <div>
+              <p className="text-xs text-ink-muted mb-2 uppercase tracking-wider">Pages</p>
+              <ul className="space-y-1.5">
+                {[
+                  { href: "/blog", label: "ブログ" },
+                  { href: "/bloodline", label: "血統紹介" },
+                  { href: "/environment", label: "飼育環境" },
+                  { href: "/about", label: "自己紹介" },
+                  { href: "/links", label: "リンク" },
+                ].map(({ href, label }) => (
+                  <li key={href}>
+                    <Link href={href} className="text-sm text-ink-secondary hover:text-cyan-400 transition-colors">
+                      {label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div>
+              <p className="text-xs text-ink-muted mb-2 uppercase tracking-wider">SNS</p>
+              <ul className="space-y-1.5">
+                {[
+                  { href: "https://x.com/aquarium621", label: "X (Twitter)" },
+                  { href: "https://www.instagram.com/kinpeco_aquarium", label: "Instagram" },
+                  { href: "https://www.youtube.com/@aquarium-abyss", label: "YouTube" },
+                ].map(({ href, label }) => (
+                  <li key={href}>
+                    <a
+                      href={href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-sm text-ink-secondary hover:text-cyan-400 transition-colors"
+                    >
+                      {label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </div>
-        <div className="border-t border-[#1a2338] mt-8 pt-4 text-center text-gray-400">
-          <p>&copy; {new Date().getFullYear()} Abyss. All rights reserved.</p>
+
+        <div className="section-divider mt-8 pt-4">
+          <p className="text-xs text-ink-muted text-center">
+            &copy; {new Date().getFullYear()} Abyss. All rights reserved.
+          </p>
         </div>
       </div>
     </footer>
