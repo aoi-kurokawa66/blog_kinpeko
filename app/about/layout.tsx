@@ -15,6 +15,9 @@ export const metadata: Metadata = {
     title: "自己紹介 | キンペコ（L333）ブリード・血統・飼育記録",
     description: "ブリーダーとしての想いとキンペコへのこだわり、ブリーディング環境をご紹介します",
   },
+  alternates: {
+    canonical: `${siteUrl}/about`,
+  },
 };
 
 export default function AboutLayout({

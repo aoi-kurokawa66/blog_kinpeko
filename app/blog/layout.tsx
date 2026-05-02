@@ -15,6 +15,9 @@ export const metadata: Metadata = {
     title: "ブログ | キンペコ（L333）ブリード・血統・飼育記録",
     description: "日々の育成状況、成長状況の記録を更新しています",
   },
+  alternates: {
+    canonical: `${siteUrl}/blog`,
+  },
 };
 
 export default function BlogLayout({

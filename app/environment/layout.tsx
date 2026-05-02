@@ -15,6 +15,9 @@ export const metadata: Metadata = {
     title: "飼育環境 | キンペコ（L333）ブリード・血統・飼育記録",
     description: "キンペコが健やかに育つ飼育環境づくりと日々の管理についてご紹介します",
   },
+  alternates: {
+    canonical: `${siteUrl}/environment`,
+  },
 };
 
 export default function EnvironmentLayout({
