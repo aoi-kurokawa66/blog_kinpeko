@@ -66,7 +66,7 @@ export default function Header() {
     <>
       {/* デスクトップ上部ナビ */}
       <header className="hidden md:block fixed top-0 left-0 right-0 z-50 bg-ocean-800/95 backdrop-blur-md border-b border-ocean-500/60">
-        <nav className="container mx-auto px-6 max-w-6xl">
+        <nav className="container mx-auto px-6 max-w-6xl" aria-label="メインナビゲーション">
           <div className="flex items-center justify-between h-20">
             <Link href="/" className="flex items-center hover:opacity-80 transition-opacity">
               <Image
@@ -83,6 +83,7 @@ export default function Header() {
                 <li key={href}>
                   <Link
                     href={href}
+                    aria-current={isActive(href) ? "page" : undefined}
                     className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-150 ${
                       isActive(href)
                         ? "text-cyan-400 bg-cyan-400/10"
@@ -128,7 +129,7 @@ export default function Header() {
       </header>
 
       {/* モバイル下部タブバー */}
-      <nav className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-ocean-800/97 backdrop-blur-md border-t border-ocean-500/60">
+      <nav className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-ocean-800/97 backdrop-blur-md border-t border-ocean-500/60" aria-label="モバイルナビゲーション">
         <div className="flex items-stretch h-[4.25rem] pb-safe">
           {navItems.map(({ href, label, icon: Icon }) => {
             const active = isActive(href);
@@ -136,6 +137,7 @@ export default function Header() {
               <Link
                 key={href}
                 href={href}
+                aria-current={active ? "page" : undefined}
                 className={`flex-1 flex flex-col items-center justify-center gap-0.5 pt-2 pb-1 transition-colors duration-150 ${
                   active ? "text-cyan-400" : "text-ink-muted"
                 }`}
@@ -145,7 +147,7 @@ export default function Header() {
                   {label}
                 </span>
                 {active && (
-                  <span className="absolute bottom-0 w-6 h-0.5 bg-cyan-400 rounded-full" />
+                  <span className="absolute bottom-0 w-6 h-0.5 bg-cyan-400 rounded-full" aria-hidden="true" />
                 )}
               </Link>
             );
