@@ -18,6 +18,7 @@ export interface MicroCMSBlog {
   date?: string;
   excerpt?: string;
   tags?: string;
+  thumbnail?: string;
 }
 
 export interface Blog {
@@ -40,7 +41,7 @@ function normalize(post: MicroCMSBlog): Blog {
     content: post.content || "",
     category: post.category || "",
     tags: post.tags ? post.tags.split(",").map((t) => t.trim()).filter(Boolean) : [],
-    thumbnail: post.eyecatch?.url || "",
+    thumbnail: post.thumbnail || post.eyecatch?.url || "",
   };
 }
 
