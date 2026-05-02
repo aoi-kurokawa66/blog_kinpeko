@@ -1,9 +1,12 @@
 import Link from "next/link";
+import Image from "next/image";
 import Script from "next/script";
 import { notFound } from "next/navigation";
-import { getAllBlogs, getBlogBySlug } from "@/lib/microcms";
+import { getAllBlogs, getBlogBySlug, type Blog } from "@/lib/microcms";
 import Breadcrumb from "@/app/components/Breadcrumb";
 
+const DEFAULT_THUMBNAIL = "/images/fish/hero.webp";
+const RELATED_POSTS_COUNT = 3;
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.abyss-kinpeko.com";
 
 export const revalidate = 60;
@@ -13,11 +16,26 @@ export async function generateStaticParams() {
   return posts.map((post) => ({ slug: post.slug }));
 }
 
+function getRelatedPosts(allPosts: Blog[], currentPost: Blog): Blog[] {
+  const others = allPosts.filter((p) => p.slug !== currentPost.slug);
+  if (currentPost.tags && currentPost.tags.length > 0) {
+    const byTag = others.filter((p) =>
+      p.tags?.some((t) => currentPost.tags!.includes(t))
+    );
+    if (byTag.length > 0) return byTag.slice(0, RELATED_POSTS_COUNT);
+  }
+  return others.slice(0, RELATED_POSTS_COUNT);
+}
+
 export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const post = await getBlogBySlug(slug);
+  const [post, allPosts] = await Promise.all([
+    getBlogBySlug(slug),
+    getAllBlogs({ excludeCategory: "bloodline" }),
+  ]);
   if (!post) notFound();
 
+  const relatedPosts = getRelatedPosts(allPosts, post);
   const htmlContent = post.content;
 
   const articleSchema = {
@@ -101,6 +119,42 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
               dangerouslySetInnerHTML={{ __html: htmlContent }}
             />
           </div>
+
+          {/* 関連記事 */}
+          {relatedPosts.length > 0 && (
+            <div className="mt-10">
+              <p className="text-[0.65rem] font-bold text-ink-muted tracking-[0.2em] uppercase mb-4">Related Posts</p>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                {relatedPosts.map((related) => (
+                  <Link
+                    key={related.slug}
+                    href={`/blog/${related.slug}`}
+                    className="group glass-card-hover overflow-hidden rounded-xl flex flex-col"
+                  >
+                    <div className="relative h-28 flex-shrink-0">
+                      <Image
+                        src={related.thumbnail || DEFAULT_THUMBNAIL}
+                        alt={related.title}
+                        fill
+                        className="object-cover group-hover:scale-105 transition-transform duration-500"
+                        sizes="(max-width: 640px) 100vw, 33vw"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-ocean-900/80 via-transparent to-transparent" />
+                    </div>
+                    <div className="p-3 flex flex-col flex-1">
+                      <time className="text-[0.55rem] text-ink-muted mb-1">
+                        {new Date(related.date).toLocaleDateString("ja-JP", { year: "numeric", month: "short", day: "numeric" })}
+                      </time>
+                      <p className="text-xs font-semibold text-ink-primary group-hover:text-cyan-400 transition-colors leading-snug line-clamp-2">
+                        {related.title}
+                      </p>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          )}
+
           <div className="mt-8">
             <Link
               href="/blog"
