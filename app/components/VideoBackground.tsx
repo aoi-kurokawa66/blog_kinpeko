@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 
 interface VideoBackgroundProps {
   src: string;
@@ -116,13 +117,12 @@ export default function VideoBackground({ src, poster, className = "", hideMobil
       ) : (
         // 画像背景（他のセクション用）
         poster && shouldLoadImage && (
-          <img
+          <Image
             src={poster}
             alt=""
-            className="absolute inset-0 w-full h-full object-cover md:hidden"
-            loading={lazy ? "lazy" : "eager"}
-            fetchPriority="high"
-            decoding="async"
+            fill
+            className="object-cover md:hidden"
+            priority={!lazy}
             onLoad={() => {
               imageLoadedRef.current = true;
             }}
