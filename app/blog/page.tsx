@@ -1,279 +1,73 @@
-"use client";
-
-import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-
-interface BlogPost {
-  slug: string;
-  title: string;
-  date: string;
-  excerpt: string;
-  category?: string;
-  tags?: string[];
-}
-
-const POSTS_PER_PAGE = 10;
+import { getAllPosts } from "@/lib/blog";
 
 export default function BlogPage() {
-  const heroRef = useRef<HTMLElement>(null);
-  const postsRef = useRef<HTMLElement>(null);
-  const [allPosts, setAllPosts] = useState<BlogPost[]>([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [isLoading, setIsLoading] = useState(true);
-  const [isVisible, setIsVisible] = useState({
-    hero: false,
-    posts: false,
-  });
-
-  useEffect(() => {
-    let cancelled = false;
-
-    const fetchData = async () => {
-      try {
-        const res = await fetch("/api/blog?excludeCategory=bloodline", {
-          cache: 'force-cache',
-          next: { revalidate: 60 },
-        });
-
-        if (!res.ok) {
-          throw new Error('Failed to fetch');
-        }
-
-        const data = await res.json();
-        if (!cancelled) {
-          setAllPosts(data);
-          setIsLoading(false);
-        }
-      } catch (error) {
-        if (!cancelled) {
-          console.error('Error fetching posts:', error);
-          setIsLoading(false);
-        }
-      }
-    };
-
-    fetchData();
-
-    return () => {
-      cancelled = true;
-    };
-  }, []);
-
-  // ページネーション計算
-  const totalPages = Math.ceil(allPosts.length / POSTS_PER_PAGE);
-  const startIndex = (currentPage - 1) * POSTS_PER_PAGE;
-  const endIndex = startIndex + POSTS_PER_PAGE;
-  const currentPosts = allPosts.slice(startIndex, endIndex);
-
-  useEffect(() => {
-    const observers: IntersectionObserver[] = [];
-    const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
-
-    const createObserver = (ref: React.RefObject<HTMLElement>, key: keyof typeof isVisible) => {
-      if (!ref.current || isVisible[key]) return; // 既に表示済みならスキップ
-
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              setIsVisible((prev) => ({ ...prev, [key]: true }));
-              observer.disconnect(); // 一度表示されたら切断
-            }
-          });
-        },
-        {
-          threshold: 0.1,
-          rootMargin: isMobile ? "0px 0px -50px 0px" : "0px 0px -100px 0px", // モバイルでは小さく
-        }
-      );
-
-      observer.observe(ref.current);
-      observers.push(observer);
-    };
-
-    createObserver(heroRef, "hero");
-    createObserver(postsRef, "posts");
-
-    return () => {
-      observers.forEach((observer) => observer.disconnect());
-    };
-  }, [isVisible]);
-
-  const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
-    return date.toLocaleDateString("ja-JP", {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    });
-  };
+  const posts = getAllPosts(undefined, "bloodline");
 
   return (
-    <div className="min-h-screen bg-white">
-      {/* Hero Section - Aboutと統一 */}
-      <section
-        ref={heroRef}
-        className={`relative min-h-[35vh] flex items-center justify-center bg-gradient-to-br from-primary-900 via-primary-800 to-primary-700 overflow-hidden pt-24 md:pt-24 transition-all duration-1000 ${
-          isVisible.hero ? "opacity-100" : "opacity-0"
-        }`}
-      >
-        <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
-          {/* 英字ラベル */}
-          <div className="mb-6">
-            <p className="text-xs md:text-sm font-medium text-accent-300 tracking-wider uppercase mb-2">
-              BLOG
-            </p>
-          </div>
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold text-white mb-4 drop-shadow-lg">
-            <span className="text-accent-400">ブ</span>ログ
-          </h1>
-          <p className="text-lg md:text-xl text-white/90">
-            日々の育成状況、成長状況の記録を更新しています
-          </p>
+    <div className="min-h-screen">
+      {/* ページヘッダー */}
+      <section className="bg-ocean-800 py-10 md:py-14 border-b border-ocean-500/50">
+        <div className="container mx-auto px-5 max-w-5xl">
+          <p className="text-cyan-400 text-[0.65rem] font-bold tracking-[0.2em] uppercase mb-2">Blog</p>
+          <h1 className="text-2xl md:text-3xl font-bold text-ink-primary">ブログ</h1>
+          <p className="text-sm text-ink-muted mt-1">日々の育成状況・繁殖記録を更新しています</p>
         </div>
       </section>
 
-      {/* セクション区切り：余白とラベルで区切る */}
-      <section className="py-10 sm:py-12 md:py-16 px-4">
-        <div className="max-w-5xl mx-auto">
-          <div className="mb-8">
-            <p className="text-xs font-medium text-gray-400 tracking-wider uppercase mb-4">
-              ARTICLES
-            </p>
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">
-              <span className="text-accent-600">記事</span>一覧
-            </h2>
-            <p className="text-sm text-gray-500">
-              ブログ記事の一覧です
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* ブログ一覧セクション */}
-      <section
-        ref={postsRef}
-        className={`bg-gray-50 py-10 sm:py-12 md:py-16 transition-all duration-1000 ${
-          isVisible.posts ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-        }`}
-      >
-        <div className="max-w-5xl mx-auto px-4">
-          {isLoading ? (
-            <div className="text-center py-12">
-              <p className="text-gray-600">読み込み中...</p>
+      {/* 記事一覧 */}
+      <section className="bg-ocean-900 py-8 md:py-12">
+        <div className="container mx-auto px-5 max-w-5xl">
+          {posts.length > 0 ? (
+            <div className="space-y-2.5">
+              {posts.map((post, i) => (
+                <Link
+                  key={post.slug}
+                  href={`/blog/${post.slug}`}
+                  className="group flex items-start gap-4 glass-card-hover p-4 md:p-5"
+                >
+                  <span className="flex-shrink-0 w-7 h-7 rounded-full bg-ocean-600 border border-ocean-500 flex items-center justify-center text-[0.6rem] font-bold text-ink-muted group-hover:border-cyan-400/40 transition-colors">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2 mb-1.5">
+                      {post.category && (
+                        <span className="text-[0.6rem] font-bold text-cyan-400 bg-cyan-400/10 px-2 py-0.5 rounded-full tracking-wide">
+                          {post.category}
+                        </span>
+                      )}
+                      <time className="text-[0.6rem] text-ink-muted">
+                        {new Date(post.date).toLocaleDateString("ja-JP", {
+                          year: "numeric",
+                          month: "short",
+                          day: "numeric",
+                        })}
+                      </time>
+                    </div>
+                    <h3 className="text-sm md:text-[0.95rem] font-semibold text-ink-primary group-hover:text-cyan-400 transition-colors leading-snug">
+                      {post.title}
+                    </h3>
+                    {post.excerpt && (
+                      <p className="text-xs text-ink-muted mt-1 line-clamp-2 leading-relaxed">
+                        {post.excerpt}
+                      </p>
+                    )}
+                  </div>
+                  <svg
+                    className="flex-shrink-0 w-3.5 h-3.5 text-ink-muted group-hover:text-cyan-400 transition-colors mt-1"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </Link>
+              ))}
             </div>
           ) : (
-            <>
-              <div className="space-y-6">
-                {currentPosts.length > 0 ? (
-                  currentPosts.map((post) => (
-                    <Link
-                      key={post.slug}
-                      href={`/blog/${post.slug}`}
-                      className="block bg-white rounded-lg p-6 md:p-8 hover:shadow-lg transition-all duration-300 border border-gray-200 group"
-                    >
-                      {/* カードヘッダー：情報構造を明確化 */}
-                      <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-4 pb-4 border-b border-gray-100">
-                        <div className="flex-1">
-                          <h3 className="text-2xl md:text-3xl font-bold text-gray-900 group-hover:text-primary-700 transition-colors mb-2">
-                            {post.title}
-                          </h3>
-                          {post.category && (
-                            <span className="inline-block px-3 py-1 bg-accent-500/20 text-accent-700 text-xs md:text-sm font-semibold rounded border border-accent-500/30">
-                              {post.category}
-                            </span>
-                          )}
-                        </div>
-                        <time className="text-sm text-gray-500 whitespace-nowrap">
-                          {formatDate(post.date)}
-                        </time>
-                      </div>
-                      
-                      {/* カード本文：テキスト情報を主役に */}
-                      <div className="mb-4">
-                        <p className="text-gray-700 leading-relaxed">
-                          {post.excerpt}
-                        </p>
-                      </div>
-                      
-                      {/* タグ表示を一旦非表示 */}
-                      {/* {post.tags && post.tags.length > 0 && (
-                        <div className="flex flex-wrap gap-2 pt-4 border-t border-gray-100">
-                          {post.tags.map((tag, index) => (
-                            <span
-                              key={index}
-                              className="px-3 py-1 bg-gray-50 text-gray-700 text-sm rounded border border-gray-200"
-                            >
-                              {tag}
-                            </span>
-                          ))}
-                        </div>
-                      )} */}
-                    </Link>
-                  ))
-                ) : (
-                  <div className="bg-white rounded-lg p-8 text-center border border-gray-200">
-                    <p className="text-gray-600">
-                      まだ記事がありません
-                    </p>
-                  </div>
-                )}
-              </div>
-
-              {/* ページネーション */}
-              {totalPages > 1 && (
-                <div className="mt-12 flex justify-center items-center gap-2">
-                  <button
-                    onClick={() => setCurrentPage((prev) => Math.max(1, prev - 1))}
-                    disabled={currentPage === 1}
-                    className="px-5 py-3 sm:px-4 sm:py-2 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-                  >
-                    前へ
-                  </button>
-                  <div className="flex gap-2">
-                    {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => {
-                      // 現在のページの前後2ページまで表示
-                      if (
-                        page === 1 ||
-                        page === totalPages ||
-                        (page >= currentPage - 2 && page <= currentPage + 2)
-                      ) {
-                        return (
-                          <button
-                            key={page}
-                            onClick={() => setCurrentPage(page)}
-                            className={`px-5 py-3 sm:px-4 sm:py-2 rounded-lg transition-colors ${
-                              currentPage === page
-                                ? "bg-primary-600 text-white"
-                                : "bg-white border border-gray-300 hover:bg-gray-50"
-                            }`}
-                          >
-                            {page}
-                          </button>
-                        );
-                      } else if (
-                        page === currentPage - 3 ||
-                        page === currentPage + 3
-                      ) {
-                        return (
-                          <span key={page} className="px-2 text-gray-500">
-                            ...
-                          </span>
-                        );
-                      }
-                      return null;
-                    })}
-                  </div>
-                  <button
-                    onClick={() => setCurrentPage((prev) => Math.min(totalPages, prev + 1))}
-                    disabled={currentPage === totalPages}
-                    className="px-5 py-3 sm:px-4 sm:py-2 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-                  >
-                    次へ
-                  </button>
-                </div>
-              )}
-            </>
+            <div className="glass-card p-8 text-center">
+              <p className="text-ink-muted">まだ記事がありません</p>
+            </div>
           )}
         </div>
       </section>

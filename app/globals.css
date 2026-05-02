@@ -4,7 +4,13 @@
 
 @layer base {
   body {
-    @apply bg-gray-50 text-gray-900;
+    @apply bg-ocean-900 text-ink-primary;
+    background-image: radial-gradient(ellipse at 20% 0%, rgba(34,211,238,0.04) 0%, transparent 50%),
+                      radial-gradient(ellipse at 80% 100%, rgba(212,175,55,0.03) 0%, transparent 50%);
+  }
+
+  * {
+    -webkit-tap-highlight-color: transparent;
   }
 }
 
@@ -12,413 +18,157 @@
   .text-balance {
     text-wrap: balance;
   }
-  
-  .gradient-primary {
-    background: linear-gradient(135deg, #1a237e 0%, #283593 50%, #3949ab 100%);
+
+  /* シアングロー効果 */
+  .glow-cyan {
+    box-shadow: 0 0 20px rgba(34, 211, 238, 0.15), 0 0 60px rgba(34, 211, 238, 0.05);
   }
-  
-  .gradient-gold {
-    background: linear-gradient(135deg, #d4af37 0%, #f4d03f 100%);
+
+  .glow-gold {
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.15), 0 0 60px rgba(212, 175, 55, 0.05);
+  }
+
+  /* フラットカード */
+  .card-dark {
+    @apply bg-ocean-700 border border-ocean-500/80 rounded-2xl;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.03);
+  }
+
+  .card-dark-hover {
+    @apply card-dark transition-all duration-200;
+  }
+  .card-dark-hover:hover {
+    @apply border-cyan-400/50 bg-ocean-600;
+    box-shadow: 0 4px 20px rgba(34,211,238,0.08), 0 1px 3px rgba(0,0,0,0.3);
+  }
+
+  /* Glassmorphism カード */
+  .glass-card {
+    background: rgba(26, 42, 69, 0.55);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: 1.25rem;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255,255,255,0.05);
+  }
+
+  .glass-card-hover {
+    @apply glass-card transition-all duration-300;
+  }
+  .glass-card-hover:hover {
+    background: rgba(30, 52, 86, 0.65);
+    border-color: rgba(34, 211, 238, 0.25);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.4), 0 0 0 1px rgba(34,211,238,0.1), inset 0 1px 0 rgba(255,255,255,0.07);
+    transform: translateY(-2px);
+  }
+
+  /* グラデーションテキスト */
+  .text-cyan-gold {
+    background: linear-gradient(135deg, #22d3ee 0%, #d4af37 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
-  
-  .bg-pattern-dots {
-    background-color: rgb(249, 250, 251);
-    background-image: radial-gradient(circle, rgba(0, 0, 0, 0.08) 1px, transparent 1px);
-    background-size: 20px 20px;
-    background-position: 0 0, 10px 10px;
+
+  /* ヒーローのオーバーレイ（少し薄めで魚が見える） */
+  .hero-overlay {
+    background: linear-gradient(
+      to right,
+      rgba(15, 23, 41, 0.82) 0%,
+      rgba(15, 23, 41, 0.5) 45%,
+      rgba(15, 23, 41, 0.1) 100%
+    );
   }
-  
-  .bg-pattern-grid {
-    background-image: 
-      linear-gradient(rgba(0, 0, 0, 0.02) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(0, 0, 0, 0.02) 1px, transparent 1px);
-    background-size: 40px 40px;
+
+  .hero-overlay-mobile {
+    background: linear-gradient(
+      to top,
+      rgba(15, 23, 41, 0.92) 0%,
+      rgba(15, 23, 41, 0.6) 35%,
+      rgba(15, 23, 41, 0.1) 100%
+    );
   }
-  
-  .bg-pattern-noise {
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='4' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
+
+  /* セクション区切り */
+  .section-divider {
+    @apply border-t border-ocean-500/50;
   }
-  
-  .bg-texture {
-    background-color: rgb(255, 255, 255);
-    background-image: 
-      radial-gradient(circle at 1px 1px, rgba(0, 0, 0, 0.06) 1px, transparent 0);
-    background-size: 20px 20px;
+
+  /* スクロールバー */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
   }
-  
-  .animate-fade-in {
-    animation: fadeIn 0.6s ease-in-out;
-  }
-  
-  .animate-slide-up {
-    animation: slideUp 0.6s ease-out;
-  }
-  
-  .bg-hero-gradient {
-    background: linear-gradient(135deg, #fafbfc 0%, #e8eaed 30%, #f5f7fa 60%, #fafbfc 100%);
-    position: absolute;
-    inset: 0;
-    z-index: 0;
-  }
-  
-  .bg-hero-gradient::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(135deg, rgba(26, 35, 126, 0.03) 0%, transparent 50%, rgba(212, 175, 55, 0.02) 100%);
-    pointer-events: none;
-  }
-  
-  .bg-hero-gradient::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background-image: 
-      radial-gradient(circle at 2px 2px, rgba(26, 35, 126, 0.06) 1px, transparent 0),
-      radial-gradient(circle at 8px 8px, rgba(212, 175, 55, 0.04) 1px, transparent 0);
-    background-size: 40px 40px, 80px 80px;
-    background-position: 0 0, 20px 20px;
-    pointer-events: none;
-  }
-  
-  .bg-card-gradient {
-    background: linear-gradient(135deg, 
-      rgba(26, 35, 126, 0.15) 0%, 
-      rgba(255, 255, 255, 0.95) 20%,
-      rgba(248, 249, 252, 0.9) 50%,
-      rgba(232, 234, 246, 0.85) 80%,
-      rgba(26, 35, 126, 0.12) 100%);
-    box-shadow: 
-      0 20px 60px rgba(26, 35, 126, 0.2),
-      0 8px 24px rgba(212, 175, 55, 0.15),
-      0 2px 8px rgba(0, 0, 0, 0.1),
-      inset 0 2px 4px rgba(255, 255, 255, 0.9),
-      inset 0 -2px 4px rgba(26, 35, 126, 0.1);
-    border: 2px solid;
-    border-image: linear-gradient(135deg, 
-      rgba(212, 175, 55, 0.6) 0%, 
-      rgba(26, 35, 126, 0.4) 50%, 
-      rgba(212, 175, 55, 0.6) 100%) 1;
-    position: relative;
-    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-    overflow: hidden;
-  }
-  
-  .card-hover:hover .bg-card-gradient {
-    box-shadow: 
-      0 30px 80px rgba(26, 35, 126, 0.3),
-      0 12px 32px rgba(212, 175, 55, 0.2),
-      0 4px 12px rgba(0, 0, 0, 0.15),
-      inset 0 2px 4px rgba(255, 255, 255, 0.95),
-      inset 0 -2px 4px rgba(26, 35, 126, 0.15);
-    transform: scale(1.01);
-  }
-  
-  .bg-card-gradient::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background-image: 
-      radial-gradient(circle at 2px 2px, rgba(26, 35, 126, 0.08) 1.5px, transparent 0),
-      radial-gradient(circle at 8px 8px, rgba(212, 175, 55, 0.06) 1px, transparent 0),
-      linear-gradient(135deg, rgba(212, 175, 55, 0.08) 0%, transparent 30%, rgba(26, 35, 126, 0.1) 70%, transparent 100%);
-    background-size: 40px 40px, 80px 80px, 100% 100%;
-    opacity: 0.8;
-    pointer-events: none;
-    animation: shimmer 10s ease-in-out infinite;
-  }
-  
-  .text-gradient {
-    background: linear-gradient(135deg, #1a237e 0%, #3949ab 30%, #d4af37 50%, #3949ab 70%, #283593 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    background-size: 300% 300%;
-    animation: gradient 6s ease infinite;
-    filter: drop-shadow(0 2px 4px rgba(26, 35, 126, 0.3));
-    will-change: background-position;
-  }
-  
-  .card-hover {
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    will-change: transform;
-  }
-  
-  .card-hover:hover {
-    transform: translateY(-4px);
-  }
-  
-  .animate-gradient {
-    background-size: 200% 200%;
-    animation: gradient 8s ease infinite;
-    will-change: background-position;
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
   }
 }
 
-/* モバイルでのアニメーション軽量化 */
-@media (max-width: 768px) {
-  .text-gradient {
-    filter: none; /* モバイルではdrop-shadowを削除 */
-    animation-duration: 12s; /* 6s → 12s に変更 */
-  }
-  
-  .bg-card-gradient::after {
-    animation-duration: 20s; /* 10s → 20s に変更 */
-  }
-  
-  .animate-gradient {
-    animation-duration: 16s; /* 8s → 16s に変更 */
-  }
-  
-  .card-hover {
-    transition-duration: 0.3s; /* 0.4s → 0.3s に変更 */
+/* モバイル下部タブバー分の余白 */
+@media (max-width: 767px) {
+  main {
+    padding-bottom: 4.5rem;
   }
 }
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes slideUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes gradient {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
-
-@keyframes shimmer {
-  0%, 100% {
-    opacity: 0.6;
-    transform: translateX(0) translateY(0);
-  }
-  25% {
-    opacity: 0.8;
-    transform: translateX(10px) translateY(-5px);
-  }
-  50% {
-    opacity: 0.7;
-    transform: translateX(-5px) translateY(10px);
-  }
-  75% {
-    opacity: 0.9;
-    transform: translateX(-10px) translateY(-5px);
-  }
-}
-
-@keyframes pulse {
-  0%, 100% {
-    opacity: 0.6;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 0.9;
-    transform: scale(1.1);
-  }
-}
-
-/* prefers-reduced-motion対応：動画とアニメーションを無効化 */
+/* prefers-reduced-motion */
 @media (prefers-reduced-motion: reduce) {
-  .video-background {
-    display: none !important;
-  }
-  
   *,
   *::before,
   *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
   }
 }
 
-/* ブログコンテンツのスタイル */
-.prose-content h1 {
-  font-size: 1.875rem;
+/* ブログ本文スタイル */
+.prose-content h1,
+.prose-content h2,
+.prose-content h3,
+.prose-content h4 {
+  color: #e2e8f0;
   font-weight: 700;
-  color: #1a237e;
+  line-height: 1.3;
   margin-top: 2rem;
   margin-bottom: 1rem;
-  line-height: 1.3;
 }
 
 .prose-content h2 {
   font-size: 1.5rem;
-  font-weight: 700;
-  color: #1a237e;
-  margin-top: 2rem;
-  margin-bottom: 1rem;
-  line-height: 1.3;
+  border-left: 3px solid #22d3ee;
+  padding-left: 0.75rem;
 }
 
 .prose-content h3 {
   font-size: 1.25rem;
-  font-weight: 700;
-  color: #1a237e;
-  margin-top: 1.5rem;
-  margin-bottom: 0.75rem;
-  line-height: 1.3;
+  color: #94a3b8;
 }
 
 .prose-content p {
   margin-bottom: 1.5rem;
-  line-height: 1.75;
-  font-size: 1rem;
+  line-height: 1.85;
+  color: #cbd5e1;
 }
 
-/* proseクラス内の見出しスタイルを明示的に設定 */
-.prose h1,
-article.prose h1 {
-  font-size: 2.25em;
-  font-weight: 700;
-  color: #1a237e;
-  margin-top: 2em;
-  margin-bottom: 1em;
-  line-height: 1.3;
+.prose-content a {
+  color: #22d3ee;
+  text-decoration: none;
+}
+.prose-content a:hover {
+  text-decoration: underline;
 }
 
-.prose h2,
-article.prose h2 {
-  font-size: 1.875em;
-  font-weight: 700;
-  color: #1a237e;
-  margin-top: 2em;
-  margin-bottom: 1em;
-  line-height: 1.3;
-}
-
-.prose h3,
-article.prose h3 {
-  font-size: 1.5em;
-  font-weight: 700;
-  color: #1a237e;
-  margin-top: 1.5em;
-  margin-bottom: 0.75em;
-  line-height: 1.3;
-}
-
-.prose h4,
-article.prose h4 {
-  font-size: 1.25em;
-  font-weight: 700;
-  color: #1a237e;
-  margin-top: 1.5em;
-  margin-bottom: 0.75em;
-  line-height: 1.3;
-}
-
-.prose h5,
-article.prose h5 {
-  font-size: 1.125em;
-  font-weight: 700;
-  color: #1a237e;
-  margin-top: 1.25em;
-  margin-bottom: 0.5em;
-  line-height: 1.3;
-}
-
-.prose h6,
-article.prose h6 {
-  font-size: 1em;
-  font-weight: 700;
-  color: #1a237e;
-  margin-top: 1.25em;
-  margin-bottom: 0.5em;
-  line-height: 1.3;
-}
-
-/* proseクラス内の段落マージンを明示的に設定 */
-.prose p,
-article.prose p {
-  margin-top: 1.25em;
-  margin-bottom: 1.25em;
-}
-
-.prose p:first-child,
-article.prose p:first-child {
-  margin-top: 0;
-}
-
-.prose p:last-child,
-article.prose p:last-child {
-  margin-bottom: 0;
-}
-
-/* <br>タグのスタイリング - 改行を適切に表示 */
-.prose br,
-.prose-content br,
-article.prose br {
-  line-height: 1.75;
-  display: block;
-  margin-bottom: 0.5em;
-  content: "";
-}
-
-@media (min-width: 768px) {
-  .prose-content p {
-    font-size: 1.125rem;
-  }
-  
-  .prose-content h1 {
-    font-size: 2.25rem;
-  }
-  
-  .prose-content h2 {
-    font-size: 1.875rem;
-  }
-  
-  .prose-content h3 {
-    font-size: 1.5rem;
-  }
+.prose-content strong {
+  color: #e2e8f0;
+  font-weight: 600;
 }
 
 .prose-content ul,
 .prose-content ol {
   margin-bottom: 1.5rem;
   padding-left: 1.5rem;
-}
-
-/* スマホ時のネストされたリストのインデントを減らす */
-.prose-content ul ul,
-.prose-content ol ol,
-.prose-content ul ol,
-.prose-content ol ul {
-  padding-left: 0.5rem;
-  margin-bottom: 0.5rem;
-}
-
-@media (min-width: 768px) {
-  .prose-content ul ul,
-  .prose-content ol ol,
-  .prose-content ul ol,
-  .prose-content ol ul {
-    padding-left: 1.25rem;
-    margin-bottom: 1rem;
-  }
+  color: #cbd5e1;
 }
 
 .prose-content li {
@@ -426,82 +176,64 @@ article.prose br {
   line-height: 1.75;
 }
 
-/* ネストされたリストアイテムのマージンも調整 */
-.prose-content ul ul li,
-.prose-content ol ol li {
-  margin-bottom: 0.25rem;
-}
-
-.prose-content strong {
-  font-weight: 600;
-  color: #111827;
-}
-
-.prose-content a {
-  color: #3f51b5;
-  text-decoration: none;
-}
-
-.prose-content a:hover {
-  text-decoration: underline;
-}
-
 .prose-content hr {
-  border-color: #d1d5db;
+  border-color: #1e3a5f;
   margin: 2rem 0;
 }
 
 .prose-content blockquote {
-  border-left: 4px solid #3949ab;
+  border-left: 3px solid #22d3ee;
   padding: 1rem 1.5rem;
   margin: 2rem 0;
-  background: linear-gradient(135deg, rgba(57, 73, 171, 0.05) 0%, rgba(212, 175, 55, 0.03) 100%);
+  background: rgba(34, 211, 238, 0.05);
   border-radius: 0 8px 8px 0;
+  color: #94a3b8;
   font-style: italic;
-  color: #374151;
-  position: relative;
 }
 
-.prose-content blockquote::before {
-  content: '"';
-  font-size: 3rem;
-  line-height: 1;
-  color: rgba(57, 73, 171, 0.2);
-  position: absolute;
-  left: 0.5rem;
-  top: 0.5rem;
-  font-family: Georgia, serif;
+@media (min-width: 768px) {
+  .prose-content p {
+    font-size: 1.0625rem;
+  }
+  .prose-content h2 {
+    font-size: 1.75rem;
+  }
+  .prose-content h3 {
+    font-size: 1.375rem;
+  }
 }
 
-.prose-content blockquote p {
-  margin-bottom: 0.5rem;
-}
-
-.prose-content blockquote p:last-child {
-  margin-bottom: 0;
-}
-
-.prose-content blockquote cite {
-  display: block;
-  margin-top: 0.75rem;
-  font-size: 0.875rem;
-  color: #6b7280;
-  font-style: normal;
-  font-weight: 500;
-}
-
-.prose-content blockquote cite::before {
-  content: '— ';
-}
-
-/* 血統図（家系図）のスタイル */
+/* 血統図 */
 .pedigree-tree {
   margin: 2rem 0;
   padding: 1.5rem;
-  background: linear-gradient(135deg, rgba(249, 250, 251, 0.6) 0%, rgba(243, 244, 246, 0.8) 100%);
-  border: 1px solid rgba(229, 231, 235, 0.8);
+  background: rgba(17, 24, 39, 0.8);
+  border: 1px solid #1e3a5f;
   border-radius: 12px;
   overflow-x: auto;
+}
+
+.pedigree-label {
+  background: linear-gradient(135deg, #22d3ee20, #1e3a5f);
+  color: #e2e8f0;
+  border: 1px solid #22d3ee40;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-align: center;
+  min-width: 120px;
+  white-space: nowrap;
+}
+
+.pedigree-note {
+  margin-top: 0.25rem;
+  font-size: 0.75rem;
+  color: #64748b;
+  text-align: center;
+  font-style: italic;
+  max-width: 150px;
+  line-height: 1.4;
 }
 
 .pedigree-node {
@@ -510,29 +242,6 @@ article.prose br {
   align-items: center;
   position: relative;
   margin: 0.5rem;
-}
-
-.pedigree-label {
-  background: linear-gradient(135deg, #3949ab 0%, #283593 100%);
-  color: white;
-  padding: 0.5rem 1rem;
-  border-radius: 6px;
-  font-size: 0.875rem;
-  font-weight: 600;
-  text-align: center;
-  min-width: 120px;
-  box-shadow: 0 2px 4px rgba(57, 73, 171, 0.2);
-  white-space: nowrap;
-}
-
-.pedigree-note {
-  margin-top: 0.25rem;
-  font-size: 0.75rem;
-  color: #6b7280;
-  text-align: center;
-  font-style: italic;
-  max-width: 150px;
-  line-height: 1.4;
 }
 
 .pedigree-branches {
@@ -551,7 +260,7 @@ article.prose br {
   left: 50%;
   width: 2px;
   height: 1rem;
-  background: #3949ab;
+  background: #22d3ee40;
   transform: translateX(-50%);
 }
 
@@ -570,7 +279,7 @@ article.prose br {
   left: 50%;
   width: 2px;
   height: 1rem;
-  background: #3949ab;
+  background: #22d3ee40;
   transform: translateX(-50%);
 }
 
@@ -581,52 +290,17 @@ article.prose br {
   left: 0;
   right: 0;
   height: 2px;
-  background: #3949ab;
-}
-
-.pedigree-branch:first-child::before {
-  left: 0;
-  width: 50%;
-  height: 2px;
-  top: -1rem;
-}
-
-.pedigree-branch:last-child::before {
-  left: 50%;
-  width: 50%;
-  height: 2px;
-  top: -1rem;
-}
-
-.pedigree-branch:only-child::before {
-  display: none;
+  background: #22d3ee40;
 }
 
 @media (max-width: 768px) {
-  .pedigree-tree {
-    padding: 1rem;
-  }
-  
+  .pedigree-tree { padding: 1rem; }
   .pedigree-branches {
     flex-direction: column;
     gap: 1.5rem;
     padding-top: 0.5rem;
   }
-  
   .pedigree-branches::before,
   .pedigree-branches::after,
-  .pedigree-branch::before {
-    display: none;
-  }
-  
-  .pedigree-label {
-    font-size: 0.8125rem;
-    padding: 0.4rem 0.8rem;
-    min-width: 100px;
-  }
-  
-  .pedigree-note {
-    font-size: 0.7rem;
-    max-width: 120px;
-  }
+  .pedigree-branch::before { display: none; }
 }
