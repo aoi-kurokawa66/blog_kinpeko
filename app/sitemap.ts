@@ -1,11 +1,13 @@
 import { MetadataRoute } from "next";
-import { getAllPosts } from "../lib/blog";
+import { getAllBlogs } from "../lib/microcms";
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://kinpeko.example.com";
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.abyss-kinpeko.com";
 
-export default function sitemap(): MetadataRoute.Sitemap {
-  const blogPosts = getAllPosts();
-  const bloodlinePosts = getAllPosts("bloodline");
+export const revalidate = 3600;
+
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const blogPosts = await getAllBlogs({ excludeCategory: "bloodline" });
+  const bloodlinePosts = await getAllBlogs({ category: "bloodline" });
 
   const blogUrls = blogPosts.map((post) => ({
     url: `${siteUrl}/blog/${post.slug}`,
