@@ -1,6 +1,9 @@
 import Link from "next/link";
+import Script from "next/script";
 import { notFound } from "next/navigation";
 import { getAllBlogs, getBlogBySlug } from "@/lib/microcms";
+
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.abyss-kinpeko.com";
 
 export const revalidate = 60;
 
@@ -16,8 +19,50 @@ export default async function BloodlinePostPage({ params }: { params: Promise<{ 
 
   const htmlContent = post.content;
 
+  const articleSchema = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: post.title,
+    description: post.excerpt,
+    datePublished: post.date,
+    dateModified: post.date,
+    author: {
+      "@type": "Person",
+      name: "Abyss",
+      url: siteUrl,
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "Abyss",
+      url: siteUrl,
+    },
+    url: `${siteUrl}/bloodline/${slug}`,
+    ...(post.thumbnail && { image: post.thumbnail }),
+  };
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "ホーム", item: siteUrl },
+      { "@type": "ListItem", position: 2, name: "血統紹介", item: `${siteUrl}/bloodline` },
+      { "@type": "ListItem", position: 3, name: post.title, item: `${siteUrl}/bloodline/${slug}` },
+    ],
+  };
+
   return (
     <div className="min-h-screen">
+      <Script
+        id="article-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
+      />
+      <Script
+        id="breadcrumb-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+
       {/* ページヘッダー */}
       <section className="bg-ocean-800 py-10 md:py-14 border-b border-ocean-500/50">
         <div className="container mx-auto px-5 max-w-3xl">
