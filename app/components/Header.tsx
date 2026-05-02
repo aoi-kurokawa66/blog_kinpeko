@@ -70,9 +70,9 @@ export default function Header() {
               <Image
                 src="/images/logo/logo_side.png"
                 alt="ABYSS BREED"
-                width={300}
-                height={90}
-                className="h-16 w-auto object-contain"
+                width={400}
+                height={120}
+                className="h-24 w-auto object-contain"
                 priority
               />
             </Link>
